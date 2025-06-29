@@ -392,8 +392,16 @@
                 ;; Return energy to seller
                 (update-user-energy-balance seller energy-type (+ seller-energy-balance energy-amount))
                 
-                ;; Mark trade as cancelled instead of deleting
-                (map-set active-trades trade-id (merge trade {is-completed: true}))
+                ;; Mark trade as cancelled by updating the record
+                (map-set active-trades trade-id
+                    {seller: (get seller trade),
+                     buyer: (get buyer trade),
+                     energy-type: (get energy-type trade),
+                     energy-amount: (get energy-amount trade),
+                     stx-price: (get stx-price trade),
+                     created-at: (get created-at trade),
+                     expires-at: (get expires-at trade),
+                     is-completed: true})
                 
                 (ok true))
             ERR_TRADE_NOT_FOUND)))
