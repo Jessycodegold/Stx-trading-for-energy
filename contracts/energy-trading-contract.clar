@@ -141,8 +141,9 @@
             (map-set energy-producers producer
                 (merge existing-producer 
                     {total-energy-sold: new-total, 
-                     reputation-score: new-reputation})))
-        (ok true)))
+                     reputation-score: new-reputation}))
+            true)
+        false))
 
 ;; Update consumer stats  
 (define-private (update-consumer-stats (consumer principal) (energy-amount uint))
