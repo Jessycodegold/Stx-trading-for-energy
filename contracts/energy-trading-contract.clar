@@ -154,12 +154,15 @@
             (map-set energy-consumers consumer
                 (merge existing-consumer
                     {total-energy-purchased: new-total,
-                     reputation-score: new-reputation})))
+                     reputation-score: new-reputation}))
+            true)
         ;; Create new consumer record
-        (map-set energy-consumers consumer
-            {total-energy-purchased: energy-amount,
-             preferred-energy-types: (list),
-             reputation-score: u1})))
+        (begin
+            (map-set energy-consumers consumer
+                {total-energy-purchased: energy-amount,
+                 preferred-energy-types: (list),
+                 reputation-score: u1})
+            true)))
 
 ;; Generate new trade ID
 (define-private (get-next-trade-id)
